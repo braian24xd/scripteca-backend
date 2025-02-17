@@ -37,16 +37,6 @@ app.get('/', (req, res) => {
   res.send('Bienvenido al Backend Compartido');
 });
 
-// Sirve el build de React en producción
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-  // Para cualquier ruta no definida, se devuelve el index.html
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-  });
-}
-
 // Puerto
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
