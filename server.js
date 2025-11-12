@@ -9,13 +9,12 @@ const path = require('path');
 const authRoutes = require('./routes/authRoutes');
 const recordingsRoutes = require('./routes/recordingsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
+const preregisterRoutes = require('./routes/preregisterRoutes.js');
 
 // Configuración de entorno
 dotenv.config();
 
 const app = express();
-
-
 
 // Middlewares
 app.use(cors());
@@ -31,6 +30,7 @@ mongoose
 app.use('/api', authRoutes);
 app.use('/api/recordings', recordingsRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/preregister', preregisterRoutes)
 
 // Ruta principal
 app.get('/', (req, res) => {
