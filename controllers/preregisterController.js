@@ -6,9 +6,9 @@ const getRegister = (req, res) => {
 }
 
 const addRegister = async (req, res) => {
-    const { name, lastName, email, tel } = req.body
+    const { name, lastName, email, tel, dateBorn} = req.body
 
-    if (!name || !lastName || !email || !tel) {
+    if (!name || !lastName || !email || !tel || !dateBorn) {
         return res.status(400).json({ message: "Todos los campos son requeridos" })
     }
 
@@ -21,7 +21,8 @@ const addRegister = async (req, res) => {
             name,
             lastName,
             email,
-            tel
+            tel,
+            dateBorn
         })
 
         await newPreregister.save()
@@ -30,7 +31,85 @@ const addRegister = async (req, res) => {
         const emailText = `
             Hola ${name}, bienvenido a nuestra plataforma. Tus datos de acceso son:\n\nCorreo: ${email}\n\n¡Gracias por unirte!
         `
-        const emailHtml = `<h2>Bienvenido ${name}</h2><p>Tu correo es: ${email}</p><p>Tu contraseña es: ${password}</p><p>¡Gracias por unirte a nuestra plataforma!</p>`
+        const emailHtml = `
+            <!DOCTYPE html>
+                <html lang="es">
+                <head>
+                <meta charset="UTF-8">
+                <title>Bienvenido a La Scripteca</title>
+                </head>
+
+                <body style="margin:0; padding:0; background:#111111; font-family:Arial, Helvetica, sans-serif;">
+
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#111111">
+                    <tr>
+                    <td align="center" style="padding: 40px 20px;">
+                        
+                        <!-- Contenedor principal -->
+                        <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" bgcolor="#1A1A1A" style="border-radius:12px; padding: 30px;">
+                        <tr>
+                            <td align="center">
+
+                            <!-- Logo -->
+                            <img src="https://www.scripteca.com/assets/scripteca-CyU494tQ.png" width="180" alt="La Scripteca" style="display:block; margin-bottom:25px;">
+
+                            <!-- Título -->
+                            <h1 style="color:#FD036E; margin:0; font-size:28px; font-weight:700;">
+                                Hola ${name}
+                            </h1>
+
+                            <p style="color:#FFFFFF; font-size:16px; margin:20px 0 10px;">
+                                ¡Gracias por pre-registrarte en <strong>La Scripteca</strong>!
+                            </p>
+
+                            <p style="color:#CCCCCC; font-size:15px; margin:0 0 20px;">
+                                Nos alegra muchísimo tenerte aquí. Queremos darte la bienvenida como se merece.
+                            </p>
+
+                            <p style="color:#DDDDDD; font-size:15px; margin:0 0 25px; line-height:1.6;">
+                                Como agradecimiento por confiar en nosotros, aquí tienes tu cupón de descuento  
+                                y una guía de inicio rápido para que descubras lo que podrás lograr en tu curso.
+                            </p>
+
+                            <!-- Botón -->
+                            <a href="https://drive.google.com/open?id=1p58rndEezONOB9vp1l5v9hV21kw1VZ-T&usp=drive_copy"
+                                style="background:#00B0F0; color:#FFFFFF; padding:14px 26px; font-size:16px; font-weight:700;
+                                text-decoration:none; border-radius:6px; display:inline-block; margin-bottom:25px;">
+                                Ver recursos + cupón
+                            </a>
+
+                            <p style="color:#CCCCCC; font-size:15px; margin:20px 0 10px; line-height:1.6;">
+                                Si tienes alguna duda o necesitas ayuda, estamos para ti.
+                                <br>Puedes responder a este correo y te atenderemos con gusto ❤️
+                            </p>
+
+                            <p style="color:#FFFFFF; font-size:16px; margin:30px 0 5px; font-weight:600;">
+                                ¡Nos emociona acompañarte en este camino de aprendizaje!
+                            </p>
+                            <br>
+                            <p style="color:#CCCCCC; font-size:15px; margin:0 0 5px;">
+                                Un abrazo,
+                            </p>
+                            <br>
+                            <p style="color:#FFFFFF; font-size:16px; margin:0; font-weight:600;">
+                                El Equipo de La Scripteca
+                            </p>
+                            <br>
+                            <a href="https://www.scripteca.com" style="color:#00B0F0; font-size:14px; text-decoration:none; margin-top:10px; display:inline-block;">
+                                www.scripteca.com
+                            </a>
+
+                            </td>
+                        </tr>
+                        </table>
+
+                    </td>
+                    </tr>
+                </table>
+                </body>
+            </html>
+
+        `
         await sendEmail(email, emailSubject, emailText, emailHtml);
 
         return res.status(200).json({ 

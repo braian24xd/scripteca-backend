@@ -13,7 +13,7 @@ const PreregisterSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    phone: {
+    tel: {
         type: String,
         required: true,
         unique: true
