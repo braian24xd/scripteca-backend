@@ -16,8 +16,27 @@ dotenv.config();
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+const allowedOrigins = [
+  "https://www.scripteca.com",
+  "https://scripteca.com",
+  "http://localhost:5173", // opcional para pruebas locales
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Conexión a la base de datos
