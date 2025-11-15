@@ -75,7 +75,7 @@ const addRegister = async (req, res) => {
                                     y una guía de inicio rápido para que descubras lo que podrás lograr en tu curso.
                                 </p>
 
-                                <a href="https://drive.google.com/open?id=1p58rndEezONOB9vp1l5v9hV21kw1VZ-T&usp=drive_copy"
+                                <a href="https://drive.google.com/drive/folders/1ret-jim_yOv5dOnF_a7OckYgW8meXGED?usp=sharing"
                                    style="background:#00B0F0; color:#FFFFFF; padding:14px 26px; font-size:16px; font-weight:700;
                                    text-decoration:none; border-radius:6px; display:inline-block; margin-bottom:25px;">
                                    Ver recursos + cupón
