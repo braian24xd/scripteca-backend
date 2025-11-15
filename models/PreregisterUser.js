@@ -16,7 +16,6 @@ const PreregisterSchema = new mongoose.Schema({
     tel: {
         type: String,
         required: true,
-        unique: true
     },
     dateBorn: {
         type: Date,

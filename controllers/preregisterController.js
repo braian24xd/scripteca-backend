@@ -1,4 +1,4 @@
-const preregister = require('../models/PreregisterUser.js');
+const PreregisterSchema = require('../models/PreregisterUser.js');
 const { sendEmail } = require('../utils/mailer.js'); // ahora usa Resend
 
 const getRegister = (req, res) => {
@@ -7,6 +7,7 @@ const getRegister = (req, res) => {
 
 const addRegister = async (req, res) => {
     const { name, lastName, email, tel, dateBorn } = req.body;
+    console.log(req.body)
 
     if (!name || !lastName || !email || !tel || !dateBorn) {
         return res.status(400).json({ message: "Todos los campos son requeridos" });
@@ -15,12 +16,12 @@ const addRegister = async (req, res) => {
     try {
 
         // Verificar si ya existe
-        const existingUser = await preregister.findOne({ email });
+        const existingUser = await PreregisterSchema.findOne({ email });
         if (existingUser)
             return res.status(400).json({ message: "Este correo ya esta registrado" });
 
         // Guardar preregistro
-        const newPreregister = new preregister({
+        const newPreregister = new PreregisterSchema({
             name,
             lastName,
             email,
