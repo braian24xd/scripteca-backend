@@ -1,28 +1,29 @@
-const nodemailer = require('nodemailer');
-const dotenv = require('dotenv');
-dotenv.config();
+// mailer.js
+const { Resend } = require("resend");
+require("dotenv").config();
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // o el servicio de correo que prefieras
-  auth: {
-    user: process.env.EMAIL_USER, // tu correo de gmail
-    pass: process.env.EMAIL_PASS, // tu contraseña de gmail o el App Password si tienes 2FA activado
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-console.log('EMAIL_USER:', process.env.EMAIL_USER);
-console.log('EMAIL_PASS:', process.env.EMAIL_PASS);
+const sendEmail = async (to, subject, html) => {
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "La Scripteca <contacto@scripteca.com>", 
+      to,
+      subject,
+      html,
+    });
 
-const sendEmail = (to, subject, text, html) => {
-  const mailOptions = {
-    from: process.env.EMAIL_USER, // tu correo
-    to, // correo del destinatario
-    subject,
-    text, // texto plano del correo
-    html, // HTML del correo
-  };
+    if (error) {
+      console.error("Error enviando correo:", error);
+      throw error;
+    }
 
-  return transporter.sendMail(mailOptions);
+    console.log("Correo enviado:", data);
+    return data;
+  } catch (err) {
+    console.error("Error crítico al enviar:", err);
+    throw err;
+  }
 };
 
 module.exports = { sendEmail };
