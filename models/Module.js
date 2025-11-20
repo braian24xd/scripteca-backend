@@ -13,10 +13,12 @@ const ModuleSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    tags: {
-        type: [String],
-        default: ["General"]
-    },
+    tags: [
+      {
+        title: String,
+        enum: ["HTML", "CSS", "JavaScript", "React", "NodeJS", "ExpressJS", "SASS", "Git", "GitHub"]
+      }
+    ],
     isFree: {
         type: Boolean,
         required: true
@@ -74,9 +76,45 @@ const ModuleSchema = new mongoose.Schema({
                     enum: ["URL", "PDF"],
                     required: true
                 }
-
             }
-        ]
+        ],
+        evaluations: [
+          {
+            title: {
+              type: String,
+              required: true
+            },
+            instructions: {
+              type: String,
+              required: true
+            },
+            questions: [
+              {
+                options: [String],
+                correctAnswer: String
+              }
+            ]
+          }
+        ],
+        proyect: {
+          title: {
+            type: String,
+            required: true
+          },
+          description: {
+            type: String,
+            required: true
+          },
+          deliverable: {
+            type: String,
+            required: true
+          },
+          deliverableType: {
+            type: String,
+            required: true,
+            enum: ["Google Drive", "GitHub"]
+          }
+        }
     }
 }, { timestamps: true })
 

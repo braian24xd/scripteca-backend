@@ -21,6 +21,13 @@ const CourseSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    modules: [
+        {
+            module: {
+                type: mongoose.Schema.Types.ObjectId, ref: "Module"
+            }
+        }
+    ],
     isActive: {
         type: Boolean,
         required: true
