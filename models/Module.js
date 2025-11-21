@@ -3,7 +3,8 @@ import mongoose from 'mongoose'
 const ModuleSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     description: {
         type: String,
@@ -15,13 +16,16 @@ const ModuleSchema = new mongoose.Schema({
     },
     tags: [
       {
-        title: String,
-        enum: ["HTML", "CSS", "JavaScript", "React", "NodeJS", "ExpressJS", "SASS", "Git", "GitHub"]
+        title: [String],
+        enum: ["General", "HTML", "CSS", "JavaScript", "React", "NodeJS", "ExpressJS", "SASS", "Git", "GitHub"],
+        default: ["General"],
+        index: true
       }
     ],
     isFree: {
         type: Boolean,
-        required: true
+        required: true,
+        index: true
     },
     moduleContent: {
         videos: [
@@ -44,7 +48,8 @@ const ModuleSchema = new mongoose.Schema({
                 },
                 order: {
                     type: Number,
-                    required: true
+                    required: true,
+                    index: true
                 },
                 resources: [
                     {
@@ -96,7 +101,7 @@ const ModuleSchema = new mongoose.Schema({
             ]
           }
         ],
-        proyect: {
+        project: {
           title: {
             type: String,
             required: true
@@ -119,57 +124,3 @@ const ModuleSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 export default mongoose.model('Module', ModuleSchema)
-
-/*
-    AQUI UNA POSIBLE RESPUESTA DEL MODELO COMPLETO
-
-{
-  "title": "Fundamentos de JavaScript",
-  "description": "Aprende las bases del lenguaje",
-  "position": 1,
-  "tags": ["javascript", "basics"],
-  "moduleContent": {
-    "videos": [
-      {
-        "title": "¿Qué es JavaScript?",
-        "description": "Introducción general",
-        "duration": 8,
-        "videoUrl": "https://...",
-        "resources": [
-          { "type": "pdf", "url": "..." },
-          { "type": "link", "url": "..." }
-        ]
-      }
-    ],
-    "resources": [
-      {
-        "title": "Guía oficial MDN",
-        "type": "link",
-        "url": "https://developer.mozilla.org"
-      }
-    ],
-    "quizzes": [
-      {
-        "question": "¿Qué es una variable?",
-        "options": ["A", "B", "C", "D"],
-        "answer": 1,
-        "explanation": "..."
-      }
-    ],
-    "evaluations": [
-      {
-        "title": "Evaluación de fundamentos",
-        "instructions": "Responde las preguntas",
-        "questions": [...]
-      }
-    ],
-    "project": {
-      "title": "Mini proyecto final",
-      "description": "Construye un contador con JS",
-      "deliverables": ["Repositorio GitHub", "Video explicativo"]
-    }
-  }
-}
-
-
-*/

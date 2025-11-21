@@ -1,9 +1,11 @@
 import mongoose from 'mongoose'
+import slugify from 'slugify'
 
 const CourseSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     description: {
         type: String,
@@ -21,17 +23,40 @@ const CourseSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    level: {
+        type: String,
+        enum: ["Principiantes", "Intermedio", "Avanzado"],
+        default: "Principiantes",
+        index: true
+    },
+    slug: {
+        type: String,
+        unique: true,
+        index: true
+    },
     modules: [
         {
-            module: {
-                type: mongoose.Schema.Types.ObjectId, ref: "Module"
-            }
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: "Module",
+            index: true
+
         }
     ],
     isActive: {
         type: Boolean,
-        required: true
+        required: true,
+        index: true
+    },
+}, { timestamps: true })
+
+CourseSchema.pre("save", function (next) {
+    if (!this.slug) {
+        this.slug = slugify(this.title, {
+            replacement: "-",
+            lower: true
+        })
     }
+    next()
 })
 
-export default mongoose.Model('Course', CourseSchema)
+export default mongoose.model('Course', CourseSchema)
