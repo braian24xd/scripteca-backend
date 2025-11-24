@@ -114,8 +114,6 @@ const addRegister = async (req, res) => {
         `;
 
         await sendEmail(email, emailSubject, emailHtml); 
-        // ⚠️ Resend NO necesita "text" → solo html
-
 
         return res.status(200).json({
             message: "Pre registro exitoso, revisa tu email para descargar tu guía de inicio",

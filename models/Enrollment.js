@@ -16,8 +16,7 @@ const EnrollmentSchema = new mongoose.Schema({
         ref: "Payment",
         index: true
     },
-    status: [
-        {
+    status: {
             type: String,
             enum: ["active", "pending", "paused", "expired", "refunded", "cancelled", "banned"],
             /*
@@ -29,19 +28,60 @@ const EnrollmentSchema = new mongoose.Schema({
                 cancelled:  cancelacion de membresia,
                 banned: acceso revocado
             */
-            date: Date
-        }
-    ],
+            default: "pending",
+            index: true,
+            statusHistory: [
+                {
+                    status: {
+                        type: String,
+                    },
+                    date: {
+                        type: Date,
+                        default: Date.now()
+                    }
+                }
+            ]
+    },
     progress: [
         {
             overallPercentage: {
                 type: Number,
                 default: 0,
                 required: true
-            }
-            
+            },
+            modulesProgress: [
+                {
+                    moduleId: {
+                        type: mongoose.Schema.Types.ObjectId,
+                        ref: "Recording"
+                    },
+                    completed: {
+                        type: Boolean,
+                        required: true,
+                        default: true
+                    },
+                    completedAt: {
+                        type: Date.now(),
+                        default: null
+                    },
+                    videosCompleted: [
+                        {
+                            type: [mongoose.Schema.Types.ObjectId]
+                        }
+                    ],
+                    evaluationScore: {
+                        type: Number,
+                        default: 0
+                    },
+                    projectStatus: {
+                        type: String,
+                        enum: ["pending", "submitted", "approved", "rejected"],
+                        default: "pending"
+                    }
+                }
+            ]
         }
     ]
-})
+}, { timestamps: true })
 
 export default mongoose.model("Enrollment", EnrollmentSchema)
