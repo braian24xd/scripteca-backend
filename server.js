@@ -10,6 +10,7 @@ const authRoutes = require('./routes/authRoutes');
 const recordingsRoutes = require('./routes/recordingsRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 const preregisterRoutes = require('./routes/preregisterRoutes.js');
+import courseRouter from './routes/courseRouter.js';
 
 // Configuración de entorno
 dotenv.config();
@@ -50,6 +51,7 @@ app.use('/api', authRoutes);
 app.use('/api/recordings', recordingsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/preregister', preregisterRoutes)
+app.use('/api/course', courseRouter)
 
 // Ruta principal
 app.get('/', (req, res) => {
