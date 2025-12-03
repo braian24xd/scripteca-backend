@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-// Hashear la contraseña antes de guardar
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
@@ -19,4 +18,4 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-module.exports = mongoose.Model('User', userSchema);
+module.exports = mongoose.model('User', userSchema);
