@@ -51,8 +51,7 @@ const EnrollmentSchema = new mongoose.Schema({
             type: Number,
             default: 0,
         },
-        // modulesProgress: 
-
+        //modulesProgress: 
     }
 }, { timestamps: true })
 

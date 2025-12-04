@@ -29,6 +29,12 @@ const CourseSchema = new mongoose.Schema({
         default: "Principiantes",
         index: true
     },
+    mode: {
+        type: String,
+        enum: ["live", "recorded"],
+        required: true,
+        index: true
+    },
     slug: {
         type: String,
         unique: true,

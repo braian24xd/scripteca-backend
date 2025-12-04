@@ -9,6 +9,7 @@ import usersRoutes from './routes/usersRoutes.js'
 import preregisterRoutes from './routes/preregisterRoutes.js'
 import courseRouter from './routes/courseRouter.js'
 import moduleRouter from './routes/moduleRouter.js'
+import paymentRouter from './routes/paymentRouter.js'
 
 dotenv.config();
 
@@ -26,7 +27,7 @@ app.use(
       if (!origin) return callback(null, true);
 
       if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
+        return callback(null, true)
       } else {
         return callback(new Error("Not allowed by CORS"));
       }
@@ -48,9 +49,10 @@ app.use('/api/users', usersRoutes);
 app.use('/api/preregister', preregisterRoutes)
 app.use('/api/courses', courseRouter)
 app.use('/api/modules', moduleRouter)
+app.use('/api/payments', paymentRouter)
 
 app.get('/', (req, res) => {
-  res.send('Bienvenido al Backend Compartido');
+  res.send('Punto de inicio, si tiene acceso, autentiquese. De lo contrario solcite un acceso contacto@scripteca.com');
 });
 
 const PORT = process.env.PORT || 5000;
