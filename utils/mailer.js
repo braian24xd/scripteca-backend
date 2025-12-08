@@ -1,12 +1,13 @@
-const { Resend } = require("resend");
-require("dotenv").config();
+import { Resend } from 'resend'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (to, subject, html) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "La Scripteca <contacto@scripteca.com>", 
+      from: "La Scripteca <contacto@scripteca.com>",
       to,
       subject,
       html,
@@ -25,4 +26,4 @@ const sendEmail = async (to, subject, html) => {
   }
 };
 
-module.exports = { sendEmail };
+export { sendEmail };

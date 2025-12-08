@@ -1,5 +1,5 @@
-const PreregisterSchema = require('../models/PreregisterUser.js');
-const { sendEmail } = require('../utils/mailer.js'); // ahora usa Resend
+import PreregisterSchema from '../models/PreregisterUser.js';
+import { sendEmail } from '../utils/mailer.js'
 
 const getRegister = (req, res) => {
     return res.status(200).json({ message: "Aún no hay nada aqui, el señor programador aun lo esta desarrollando" });
@@ -131,7 +131,7 @@ const addRegister = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getRegister,
     addRegister
 };

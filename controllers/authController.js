@@ -1,24 +1,24 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const User = require('../models/User'); // Modelo de usuario
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import User from '../models/User.js'
 
 // Controlador de inicio de sesión
 const login = async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
     try {
         // Verificar si el usuario existe
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email })
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado' });
+            return res.status(404).json({ message: 'Usuario no encontrado' })
         }
 
         // Verificar si la contraseña es correcta
         if (process.env.ENVIROMENT == "production") {
-            const isMatch = await bcrypt.compare(password, user.password);
+            const isMatch = await bcrypt.compare(password, user.password)
 
             if (!isMatch) {
-                return res.status(401).json({ message: 'Credenciales incorrectas' });
+                return res.status(401).json({ message: 'Credenciales incorrectas' })
             }
         }
         else {
@@ -37,9 +37,9 @@ const login = async (req, res, next) => {
             role: user.role,
         });
     } catch (error) {
-        console.error('Error en login:', error);
-        res.status(500).json({ message: 'Error en el servidor' });
+        console.error('Error en login:', error)
+        res.status(500).json({ message: 'Error en el servidor' })
     }
 };
 
-module.exports = { login };
+export { login }

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose';
 const PreregisterSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -23,4 +23,4 @@ const PreregisterSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('PreregisterSchema', PreregisterSchema)
+export default mongoose.model('PreregisterSchema', PreregisterSchema)

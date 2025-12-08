@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const recordingSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -8,4 +8,4 @@ const recordingSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Recording', recordingSchema);
+export default mongoose.model('Recording', recordingSchema);

@@ -1,6 +1,6 @@
-const User = require('../models/User'); // Importamos el modelo de usuario
-const bcrypt = require('bcrypt');
-const { sendEmail } = require('../utils/mailer');
+import User from '../models/User.js'
+import bcrypt from 'bcrypt'
+import { sendEmail } from '../utils/mailer.js'
 
 // Obtener todos los usuarios
 const getUsers = async (req, res) => {
@@ -151,7 +151,7 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
     getUsers,
     getCurrentUser,
     addUser,

@@ -3,17 +3,17 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
-import authRoutes from './routes/authRoutes.js'
-import recordingsRoutes from './routes/recordingsRoutes.js'
-import usersRoutes from './routes/usersRoutes.js'
-import preregisterRoutes from './routes/preregisterRoutes.js'
+import authRouter from './routes/authRouter.js'
+import recordingsRouter from './routes/recordingsRouter.js'
+import usersRouter from './routes/usersRouter.js'
+import preregisterRoutes from './routes/preregisterRouter.js'
 import courseRouter from './routes/courseRouter.js'
 import moduleRouter from './routes/moduleRouter.js'
 import paymentRouter from './routes/paymentRouter.js'
 
-dotenv.config();
+dotenv.config()
 
-const app = express();
+const app = express()
 
 const allowedOrigins = [
   "https://www.scripteca.com",
@@ -35,25 +35,25 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
-);
-app.use(express.json());
+)
+app.use(express.json())
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log('Conexión a MongoDB exitosa'))
-  .catch((err) => console.error('Error al conectar a MongoDB:', err));
+  .catch((err) => console.error('Error al conectar a MongoDB:', err))
 
-app.use('/api', authRoutes);
-app.use('/api/recordings', recordingsRoutes);
-app.use('/api/users', usersRoutes);
+app.use('/api', authRouter);
+app.use('/api/recordings', recordingsRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/preregister', preregisterRoutes)
 app.use('/api/courses', courseRouter)
 app.use('/api/modules', moduleRouter)
 app.use('/api/payments', paymentRouter)
 
 app.get('/', (req, res) => {
-  res.send('Punto de inicio, si tiene acceso, autentiquese. De lo contrario solcite un acceso contacto@scripteca.com');
+  res.send('Punto de acceso, si tiene acceso, autentiquese. De lo contrario solcite un acceso contacto@scripteca.com')
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`))

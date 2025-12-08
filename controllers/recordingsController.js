@@ -1,4 +1,4 @@
-const Recording = require('../models/Recording'); // Modelo de grabaciones
+import Recording from '../models/Recording.js'
 
 // Obtener todas las grabaciones
 const getRecordings = async (req, res) => {
@@ -77,9 +77,9 @@ const deleteRecording = async (req, res) => {
     }
 };
 
-module.exports = {
+export {
     getRecordings,
     addRecording,
     updateRecording,
-    deleteRecording,
+    deleteRecording
 };
